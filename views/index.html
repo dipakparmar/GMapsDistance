@@ -1,16 +1,76 @@
 @{title('Home')}
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBtJwkJTyhLpEVnDGZ28MEQ1GeiqYb215k"></script>
 <script>
+        var source, destination;
+       /* google.maps.event.addDomListener(window, 'load', function () {
+            new google.maps.places.Autocomplete(document.getElementById('inputf'));
+            new google.maps.places.Autocomplete(document.getElementById('inputT'));
+    
+        }); */
+    
+        function initialize() {
+            var inputf = document.getElementById('AddressFrom');
+            var inputT = document.getElementById('AddressTo');
+            new google.maps.places.Autocomplete(inputf);
+            new google.maps.places.Autocomplete(inputT);
+    
+    
+            /* google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                          var placef= autocomplete.getPlace();
+                          var placeT= autocomplete.getPlace();
+          
+                          document.getElementById('PlaceF').value = placef.name;
+                          document.getElementById('PlaceFLat').value = placef.geometry.location.lat();
+                          document.getElementById('PlaceFLng').value = placef.geometry.location.lng();
+                          document.getElementById('PlaceT').value = placeT.name;
+                          document.getElementById('PlaceTLat').value = placeT.geometry.location.lat();
+                          document.getElementById('PlaceTLng').value = placeT.geometry.location.lng();
+                      }); */
+        } 
+    
+        function getDistance() {
+            source = 'Kamloops, BC, Canada';
+            destination = 'Vancouver, BC, Canada';
+            var request = {
+                origin: source,
+                destination: destination,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            var service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix({
+                origins: [source],
+                destinations: [destination],
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.METRIC,
+                avoidHighways: false,
+                avoidTolls: false
+            }, function (response, status) {
+                if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
+                    var distance = response.rows[0].elements[0].distance.text;
+                    var duration = response.rows[0].elements[0].duration.text;
+                    document.getElementById("lblDistance").innerHTML = 'Distance in Kms :'+distance;
+                    document.getElementById("hfDistance").value = 'Distance in Kms :'+distance;
+                } else {
+                    alert("Unable to find the distance via road.");
+                }
+            });
+        }
+    
+    
+    
+        new google.maps.event.addDomListener(window, 'load', initialize);
+    </script><script>
     function initialize() {
-  var inputf = document.getElementById('AddressFrom');
-  var inputT = document.getElementById('AddressTo');
-  new google.maps.places.Autocomplete(inputf);
-  new google.maps.places.Autocomplete(inputT);
-}
+        var inputf = document.getElementById('AddressFrom');
+        var inputT = document.getElementById('AddressTo');
+        new google.maps.places.Autocomplete(inputf);
+        new google.maps.places.Autocomplete(inputT);
+    }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+    google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+
 <div class="row">
     <div class="col-sm-10 col-md-10 col-lg-10">
         <form>
@@ -19,20 +79,31 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 <div class="form-group row">
                     <label for="AddressFrom" class="col-sm-2 col-form-label">Starting Address</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="AddressFrom" value="">
+                        <input type="text" class="form-control" id="AddressFrom" value="Kamloops, BC, Canada">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="AddressTo" class="col-sm-2 col-form-label">Ending Address</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="AddressTo" value="">
+                        <input type="text" class="form-control" id="AddressTo" value="Vancouver, BC, Canada">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Calculate</button>
+                <button type="button" onclick="getDistance()" class="btn btn-primary">Calculate</button>
             </fieldset>
         </form>
+
+        <div id="output"></div>
+<span> Distance in Kms : </span><span id="lblDistance"></span>
+        <span id="hfDistance"></span>
     </div>
     <div class="col-sm-2 col-md-2 col-lg-2">
+        <!-- <label id="PlaceF" class="col-sm-2 col-form-label">Place From</label>
+            <label id="PlaceFLat" class="col-sm-2 col-form-label">Place from Lat</label>
+            <label id="PlaceFLng" class="col-sm-2 col-form-label">Place from Lng</label>
+            <label id="PlaceT" class="col-sm-2 col-form-label">Place To</label>
+            <label id="PlaceTLat" class="col-sm-2 col-form-label">Place to Lat</label>
+            <label id="PlaceTLng" class="col-sm-2 col-form-label">Place to Lng</label>-->
+
     </div>
 
 </div>

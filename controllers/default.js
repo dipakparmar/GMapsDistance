@@ -9,10 +9,9 @@ exports.install = function() {
 
 function view_index() {
   var self = this;
-  var googleMapsClient = require("@google/maps").createClient({
-	key: "AIzaSyBtJwkJTyhLpEVnDGZ28MEQ1GeiqYb215k",
-	Promise: Promise
-  });
+  //var googleMapsClient = require("@google/maps").createClient({
+	//key: "AIzaSyBtJwkJTyhLpEVnDGZ28MEQ1GeiqYb215k"
+ /* }); */
   
   self.view("index");
 }
