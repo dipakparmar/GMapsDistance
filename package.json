@@ -1,0 +1,17 @@
+{
+  "name": "total",
+  "version": "0.0.1",
+  "description": "A Google Maps App",
+  "main": "debug.js",
+  "scripts": {
+    "debug": "node debug.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "node release.js"
+  },
+  "author": "Dipak Parmar",
+  "license": "MIT",
+  "dependencies": {
+    "@google/maps": "^0.4.6",
+    "total.js": "^2.9.4"
+  }
+}

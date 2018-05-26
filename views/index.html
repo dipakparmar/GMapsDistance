@@ -1,0 +1,38 @@
+@{title('Home')}
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script>
+    function initialize() {
+  var inputf = document.getElementById('AddressFrom');
+  var inputT = document.getElementById('AddressTo');
+  new google.maps.places.Autocomplete(inputf);
+  new google.maps.places.Autocomplete(inputT);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10">
+        <form>
+            <fieldset>
+                <legend>Distance Calculator</legend>
+                <div class="form-group row">
+                    <label for="AddressFrom" class="col-sm-2 col-form-label">Starting Address</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="AddressFrom" value="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="AddressTo" class="col-sm-2 col-form-label">Ending Address</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="AddressTo" value="">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Calculate</button>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+    </div>
+
+</div>
